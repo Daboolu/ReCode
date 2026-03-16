@@ -67,7 +67,13 @@ export const MetaSidebar = ({
             className="h-11 bg-gray-50/80 border-transparent hover:bg-white focus:bg-white focus:border-blue-200 focus:ring-4 focus:ring-blue-50 transition-all text-sm rounded-xl px-4 shadow-inner"
           />
           <div className="absolute right-3 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
-            <ExternalLink size={14} className="text-gray-400" />
+            {link ? (
+              <a href={link} target="_blank" rel="noopener noreferrer">
+                <ExternalLink size={14} className="text-gray-400 hover:text-blue-500 cursor-pointer transition-colors" />
+              </a>
+            ) : (
+              <ExternalLink size={14} className="text-gray-400" />
+            )}
           </div>
         </div>
       </div>
