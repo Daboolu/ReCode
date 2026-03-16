@@ -62,6 +62,7 @@ export interface StatCardProps {
   footerText?: string;
   variant?: CardVariant;
   onClick?: () => void;
+  href?: string;
   className?: string;
 }
 

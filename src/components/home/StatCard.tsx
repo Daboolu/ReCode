@@ -3,6 +3,7 @@
 import { ArrowUpRight, TrendingUp, TrendingDown, Minus } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import Link from 'next/link';
 
 import type { StatCardProps } from '@/types';
 import { STATCARD_COLOR_VARIANTS } from '@/constants';
@@ -15,6 +16,7 @@ export function StatCard({
   footerText,
   variant = 'orange',
   onClick,
+  href,
   className,
 }: StatCardProps) {
   const showPercent =
@@ -48,12 +50,23 @@ export function StatCard({
           {title}
         </span>
 
-        <motion.button
-          whileHover={{ scale: 1.1, rotate: 45 }}
-          className="p-2.5 rounded-full border border-white/20 bg-white/10 text-white backdrop-blur-md cursor-pointer hover:bg-white/20 transition-colors"
-        >
-          <ArrowUpRight size={20} />
-        </motion.button>
+        {href ? (
+          <Link href={href} onClick={(e) => e.stopPropagation()}>
+            <motion.button
+              whileHover={{ scale: 1.1, rotate: 45 }}
+              className="p-2.5 rounded-full border border-white/20 bg-white/10 text-white backdrop-blur-md cursor-pointer hover:bg-white/20 transition-colors"
+            >
+              <ArrowUpRight size={20} />
+            </motion.button>
+          </Link>
+        ) : (
+          <motion.button
+            whileHover={{ scale: 1.1, rotate: 45 }}
+            className="p-2.5 rounded-full border border-white/20 bg-white/10 text-white backdrop-blur-md cursor-pointer hover:bg-white/20 transition-colors"
+          >
+            <ArrowUpRight size={20} />
+          </motion.button>
+        )}
       </div>
 
       {/* big number */}

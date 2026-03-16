@@ -72,6 +72,7 @@ export default function HomePageClient({
             variant="orange"
             footerText={t('home.masteredFooter')}
             icon={<CheckCircle2 className="w-32 h-32" />}
+            href="/questions?mastery=4,5"
           />
           <StatCard
             title={t('home.totalQuestion')}
@@ -83,6 +84,7 @@ export default function HomePageClient({
               positive: true,
             }}
             icon={<Layers className="w-32 h-32" />}
+            href="/questions"
           />
           <StatCard
             title={t('home.toReview')}
@@ -90,6 +92,7 @@ export default function HomePageClient({
             variant="purple"
             footerText={t('home.toReviewFooter')}
             icon={<BrainCircuit className="w-32 h-32" />}
+            href="/review"
           />
           <StatCard
             title={t('home.masteryRate')}

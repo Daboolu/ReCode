@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { deleteQuestionAction } from '@/actions/questions';
 import { useTranslation } from '@/hooks/useTranslation';
 
@@ -70,7 +70,11 @@ export default function QuestionsPageClient({
   const [filterDifficulty, setFilterDifficulty] = useState<string[]>([]);
   const [filterStatus, setFilterStatus] = useState<string[]>([]);
   const [filterTags, setFilterTags] = useState<string[]>([]);
-  const [filterMastery, setFilterMastery] = useState<number[]>([]);
+  const searchParams = useSearchParams();
+  const initialMastery = searchParams.get('mastery')
+    ? searchParams.get('mastery')!.split(',').map(Number)
+    : [];
+  const [filterMastery, setFilterMastery] = useState<number[]>(initialMastery);
 
   // Sorting & Pagination
   const [sortConfig, setSortConfig] = useState<SortConfig>({
