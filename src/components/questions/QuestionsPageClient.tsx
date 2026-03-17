@@ -270,6 +270,16 @@ export default function QuestionsPageClient({
     // setIsFilterOpen(false);
   };
 
+  const handleTagClickFromTable = (tag: string) => {
+    if (!filterTags.includes(tag)) {
+      setFilterTags((prev) => [...prev, tag]);
+    } else {
+      setFilterTags((prev) => prev.filter((t) => t !== tag));
+    }
+    // ensure page goes back to 1
+    setCurrentPage(1);
+  };
+
   return (
     <div className="relative min-h-full w-full">
       <div
@@ -528,6 +538,8 @@ export default function QuestionsPageClient({
           currentPage={currentPage}
           totalPages={totalPages}
           onPageChange={setCurrentPage}
+          onTagClick={handleTagClickFromTable}
+          activeTags={filterTags}
         />
 
         {/* Detail Preview */}

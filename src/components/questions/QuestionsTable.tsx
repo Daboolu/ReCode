@@ -25,6 +25,8 @@ interface QuestionsTableProps {
   currentPage: number;
   totalPages: number;
   onPageChange: (page: number) => void;
+  onTagClick?: (tag: string) => void;
+  activeTags?: string[];
 }
 
 const getDifficultyStyle = (diff: string) => {
@@ -49,6 +51,8 @@ export const QuestionsTable = ({
   currentPage,
   totalPages,
   onPageChange,
+  onTagClick,
+  activeTags = [],
 }: QuestionsTableProps) => {
   const { t } = useTranslation();
 
@@ -169,15 +173,31 @@ export const QuestionsTable = ({
                         {row.problem.tags
                           .split(",")
                           .slice(0, 3)
-                          .map((tag) => (
-                            <Badge
-                              key={tag}
-                              variant="secondary"
-                              className="font-medium text-gray-500 bg-gray-100/50 border border-gray-100 hover:bg-gray-100 rounded-md px-2 py-0.5 text-xs"
-                            >
-                              {tag}
-                            </Badge>
-                          ))}
+                          .map((tag) => {
+                            const trimmedTag = tag.trim();
+                            const isActive = activeTags.includes(trimmedTag);
+                            return (
+                              <Badge
+                                key={trimmedTag}
+                                variant="secondary"
+                                className={cn(
+                                  "font-medium rounded-md px-2 py-0.5 text-xs text-center inline-block",
+                                  isActive
+                                    ? "bg-blue-100/80 text-blue-700 border border-blue-200 shadow-sm"
+                                    : "text-gray-500 bg-gray-100/50 border border-gray-100 hover:bg-gray-100",
+                                  onTagClick && "cursor-pointer hover:bg-blue-50 hover:text-blue-700 transition-colors"
+                                )}
+                                onClick={(e) => {
+                                  if (onTagClick) {
+                                    e.stopPropagation();
+                                    onTagClick(trimmedTag);
+                                  }
+                                }}
+                              >
+                                {trimmedTag}
+                              </Badge>
+                            );
+                          })}
                       </div>
                     </td>
                     <td className="p-4">
