@@ -117,7 +117,17 @@ export const QuestionsTable = ({
 
                 <th className="h-14 px-4">{t("questionsTable.headTags")}</th>
 
-                {/* 3. Sortable Difficulty Column */}
+                <th
+                  className="h-14 px-4 cursor-pointer hover:bg-gray-50 hover:text-gray-600 transition-colors select-none"
+                  onClick={() => onSort("nextReview")}
+                >
+                  <div className="flex items-center">
+                    {t("questionsTable.headNextReview") || "Next Review"}
+                    {renderSortIcon("nextReview")}
+                  </div>
+                </th>
+
+                {/* 4. Sortable Difficulty Column */}
                 <th
                   className="h-14 px-4 cursor-pointer hover:bg-gray-50 hover:text-gray-600 transition-colors select-none"
                   onClick={() => onSort("difficulty")}
@@ -201,6 +211,11 @@ export const QuestionsTable = ({
                       </div>
                     </td>
                     <td className="p-4">
+                      <span className="text-gray-600 font-medium text-sm">
+                        {new Date(row.nextReview).toLocaleDateString()}
+                      </span>
+                    </td>
+                    <td className="p-4">
                       <Badge
                         variant="outline"
                         className={cn(
@@ -247,7 +262,7 @@ export const QuestionsTable = ({
               ) : (
                 <tr>
                   <td
-                    colSpan={6}
+                    colSpan={7}
                     className="h-40 text-center text-gray-400 italic bg-white/40"
                   >
                     {t("questionsTable.empty")}

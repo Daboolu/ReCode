@@ -75,6 +75,7 @@ export const TRANSLATIONS = {
       headMastery: '掌握程度',
       headTags: '标签',
       headDifficulty: '难度',
+      headNextReview: '下次复习',
       headActions: '操作',
       empty: '未发现相关题目。',
       diffEasy: '简单',
@@ -263,6 +264,7 @@ export const TRANSLATIONS = {
       headMastery: 'Mastery',
       headTags: 'Tags',
       headDifficulty: 'Difficulty',
+      headNextReview: 'Next Review',
       headActions: 'Actions',
       empty: 'No questions found.',
       diffEasy: 'Easy',
@@ -455,6 +457,7 @@ export type TranslationKeys =
   | 'questionsTable.headMastery'
   | 'questionsTable.headTags'
   | 'questionsTable.headDifficulty'
+  | 'questionsTable.headNextReview'
   | 'questionsTable.headActions'
   | 'questionsTable.empty'
   | 'questionsTable.diffEasy'

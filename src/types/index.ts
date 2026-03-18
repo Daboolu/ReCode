@@ -112,6 +112,7 @@ export interface QuestionRowData {
   masteryLevel: number;
   notes: string | null;
   updatedAt: Date;
+  nextReview: Date;
 
   problem: {
     id: string;

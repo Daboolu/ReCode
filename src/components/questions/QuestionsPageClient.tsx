@@ -43,11 +43,11 @@ import { DIFFICULTIES, STATUS_OPTIONS, MASTERY_COLORS } from '@/constants';
 
 const MASTERY_OPTIONS = [0, 1, 2, 3, 4, 5];
 // pagination
-const ITEMS_PER_PAGE = 10;
+const ITEMS_PER_PAGE_OPTIONS = [10, 20, 50, 100];
 
 export type SortConfig = {
   // updatedAt is default
-  key: 'pid' | 'masteryLevel' | 'difficulty' | 'updatedAt';
+  key: 'pid' | 'masteryLevel' | 'difficulty' | 'updatedAt' | 'nextReview';
   direction: 'asc' | 'desc';
 };
 
@@ -82,6 +82,7 @@ export default function QuestionsPageClient({
     direction: 'desc',
   });
   const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(ITEMS_PER_PAGE_OPTIONS[0]);
 
   // get all tags
   const availableTags = useMemo(() => {
@@ -97,7 +98,7 @@ export default function QuestionsPageClient({
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [searchQuery, filterDifficulty, filterStatus, filterMastery, filterTags]);
+  }, [searchQuery, filterDifficulty, filterStatus, filterMastery, filterTags, itemsPerPage]);
 
   const handleSort = (key: SortConfig['key']) => {
     setSortConfig((current) => {
@@ -175,6 +176,13 @@ export default function QuestionsPageClient({
           const rankB = difficultyRank[b.problem.difficulty] || 99;
           return (rankA - rankB) * modifier;
 
+        case 'nextReview':
+          return (
+            (new Date(a.nextReview).getTime() -
+              new Date(b.nextReview).getTime()) *
+            modifier
+          );
+
         case 'updatedAt':
         default:
           return (
@@ -196,10 +204,10 @@ export default function QuestionsPageClient({
     sortConfig,
   ]);
 
-  const totalPages = Math.ceil(processedData.length / ITEMS_PER_PAGE);
+  const totalPages = Math.max(1, Math.ceil(processedData.length / itemsPerPage));
   const paginatedData = processedData.slice(
-    (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE,
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage,
   );
 
   // interaction function
@@ -302,7 +310,28 @@ export default function QuestionsPageClient({
             </p>
           </div>
 
-          <div className="flex items-center gap-3 w-full sm:w-auto">
+          <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto">
+            {/* Page Size Selector */}
+            <div className="relative flex items-center justify-between gap-2 bg-white/80 backdrop-blur-md border border-gray-200/60 shadow-sm rounded-2xl h-12 px-4 focus-within:ring-2 focus-within:ring-[#ffa116]/20 focus-within:border-[#ffa116]/50 transition-all hover:bg-white cursor-pointer group">
+              <span className="text-gray-500 text-sm font-medium whitespace-nowrap hidden sm:inline-block">
+                Items:
+              </span>
+              <span className="text-gray-700 text-sm font-bold ml-1">
+                {itemsPerPage}
+              </span>
+              <select
+                value={itemsPerPage}
+                onChange={(e) => setItemsPerPage(Number(e.target.value))}
+                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+              >
+                {ITEMS_PER_PAGE_OPTIONS.map((opt) => (
+                  <option key={opt} value={opt}>
+                    {opt}
+                  </option>
+                ))}
+              </select>
+            </div>
+
             <div className="relative w-full sm:w-72 group">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4 group-focus-within:text-[#ffa116] transition-colors" />
               <Input

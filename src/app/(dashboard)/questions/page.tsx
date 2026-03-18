@@ -33,6 +33,7 @@ export default async function QuestionsPage() {
     masteryLevel: p.masteryLevel,
     notes: p.notes,
     updatedAt: p.updatedAt,
+    nextReview: p.nextReview,
 
     problem: {
       id: p.problem.id,
