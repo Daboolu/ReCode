@@ -167,8 +167,16 @@ export const TRANSLATIONS = {
       home: '首页',
       questions: '题库',
       review: '复习',
+      future: '未来计划',
       settings: '设置',
       help: '帮助',
+    },
+    futurePage: {
+      title: '复习时间线',
+      description: '未来 30 天内你需要复习的题目数量分布。',
+      reviewCount: '道题分布在今天',
+      unit: '题',
+      noTasks: '这段时间没有复习任务',
     },
     help: {
       problem: '遇到问题？',
@@ -356,8 +364,16 @@ export const TRANSLATIONS = {
       home: 'Home',
       questions: 'Questions',
       review: 'Review',
+      future: 'Future',
       settings: 'Settings',
       help: 'Help',
+    },
+    futurePage: {
+      title: 'Review Timeline',
+      description: 'Distribution of your scheduled reviews over the next 30 days.',
+      reviewCount: 'questions scheduled for today',
+      unit: 'Questions',
+      noTasks: 'No upcoming tasks found',
     },
     help: {
       problem: 'Have a problem?',
@@ -387,6 +403,7 @@ export type TranslationKeys =
   | 'sidebar.home'
   | 'sidebar.questions'
   | 'sidebar.review'
+  | 'sidebar.future'
   | 'sidebar.settings'
   | 'sidebar.help'
   | 'home.title'
@@ -524,6 +541,11 @@ export type TranslationKeys =
   | 'reviewCard.titleEasy'
   | 'reviewEmptyState.title'
   | 'reviewEmptyState.description'
-  | 'reviewEmptyState.actionBtn';
+  | 'reviewEmptyState.actionBtn'
+  | 'futurePage.title'
+  | 'futurePage.description'
+  | 'futurePage.reviewCount'
+  | 'futurePage.unit'
+  | 'futurePage.noTasks';
 
 export type LanguageType = keyof typeof TRANSLATIONS;
