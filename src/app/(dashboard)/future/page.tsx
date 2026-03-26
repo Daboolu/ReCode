@@ -76,6 +76,9 @@ export default async function FuturePage() {
           gte: todayStart,
           lte: todayEnd,
         },
+        createdAt: {
+          lt: todayStart,
+        },
       },
     }),
     prisma.progress.count({

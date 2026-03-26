@@ -157,7 +157,8 @@ export default function QuestionsPageClient({
         if (!item.lastReview) matchesTab = false;
         else {
           const lr = new Date(item.lastReview);
-          matchesTab = lr >= todayStart && lr <= todayEnd;
+          const ca = new Date(item.createdAt);
+          matchesTab = lr >= todayStart && lr <= todayEnd && ca < todayStart;
         }
       } else if (filterTab === 'added_today') {
         const ca = new Date(item.createdAt);
