@@ -62,8 +62,39 @@ export default async function FuturePage() {
     count: distribution[date],
   }));
 
-  // Sort chronologically (just in case)
-  chartData.sort((a, b) => a.date.localeCompare(b.date));
+  // Now, calculate today's local boundaries for statistics
+  const todayStart = new Date(now);
+  todayStart.setHours(0, 0, 0, 0);
+  const todayEnd = new Date(now);
+  todayEnd.setHours(23, 59, 59, 999);
 
-  return <FuturePageClient data={chartData} />;
+  // Queries for "Reviewed Today" and "Added Today"
+  const [reviewedTodayCount, addedTodayCount] = await Promise.all([
+    prisma.progress.count({
+      where: {
+        lastReview: {
+          gte: todayStart,
+          lte: todayEnd,
+        },
+      },
+    }),
+    prisma.progress.count({
+      where: {
+        createdAt: {
+          gte: todayStart,
+          lte: todayEnd,
+        },
+      },
+    }),
+  ]);
+
+  return (
+    <FuturePageClient
+      data={chartData}
+      todayStats={{
+        reviewedCount: reviewedTodayCount,
+        addedCount: addedTodayCount,
+      }}
+    />
+  );
 }

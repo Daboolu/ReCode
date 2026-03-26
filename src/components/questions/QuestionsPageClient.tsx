@@ -6,7 +6,7 @@ import { deleteQuestionAction } from '@/actions/questions';
 import { useTranslation } from '@/hooks/useTranslation';
 
 import { useState, useMemo, useEffect } from 'react';
-import { Search, Filter, Save, Check } from 'lucide-react';
+import { Search, Filter, Save, Check, X } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
@@ -56,7 +56,7 @@ export default function QuestionsPageClient({
 }: QuestionsPageClientProps) {
   const router = useRouter();
 
-  const { t } = useTranslation();
+  const { t, lang } = useTranslation();
 
   // base
   const [searchQuery, setSearchQuery] = useState('');
@@ -75,6 +75,9 @@ export default function QuestionsPageClient({
     ? searchParams.get('mastery')!.split(',').map(Number)
     : [];
   const [filterMastery, setFilterMastery] = useState<number[]>(initialMastery);
+  
+  const initialTab = searchParams.get('tab') || '';
+  const [filterTab, setFilterTab] = useState<string>(initialTab);
 
   // Sorting & Pagination
   const [sortConfig, setSortConfig] = useState<SortConfig>({
@@ -98,7 +101,7 @@ export default function QuestionsPageClient({
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [searchQuery, filterDifficulty, filterStatus, filterMastery, filterTags, itemsPerPage]);
+  }, [searchQuery, filterDifficulty, filterStatus, filterMastery, filterTags, itemsPerPage, filterTab]);
 
   const handleSort = (key: SortConfig['key']) => {
     setSortConfig((current) => {
@@ -115,6 +118,12 @@ export default function QuestionsPageClient({
 
   const processedData = useMemo(() => {
     if (!initialQuestions) return [];
+
+    const now = new Date();
+    const todayStart = new Date(now);
+    todayStart.setHours(0, 0, 0, 0);
+    const todayEnd = new Date(now);
+    todayEnd.setHours(23, 59, 59, 999);
 
     // Filtering
     let data = initialQuestions.filter((item) => {
@@ -142,12 +151,26 @@ export default function QuestionsPageClient({
         filterTags.length === 0 ||
         filterTags.some((tag) => itemTags.includes(tag));
 
+      // tab filter
+      let matchesTab = true;
+      if (filterTab === 'reviewed_today') {
+        if (!item.lastReview) matchesTab = false;
+        else {
+          const lr = new Date(item.lastReview);
+          matchesTab = lr >= todayStart && lr <= todayEnd;
+        }
+      } else if (filterTab === 'added_today') {
+        const ca = new Date(item.createdAt);
+        matchesTab = ca >= todayStart && ca <= todayEnd;
+      }
+
       return (
         matchesSearch &&
         matchesDifficulty &&
         matchesStatus &&
         matchesMastery &&
-        matchesTags
+        matchesTags &&
+        matchesTab
       );
     });
 
@@ -201,6 +224,8 @@ export default function QuestionsPageClient({
     filterStatus,
     filterMastery,
     filterTags,
+    itemsPerPage,
+    filterTab,
     sortConfig,
   ]);
 
@@ -275,6 +300,7 @@ export default function QuestionsPageClient({
     setFilterStatus([]);
     setFilterTags([]);
     setFilterMastery([]);
+    setFilterTab('');
     // setIsFilterOpen(false);
   };
 
@@ -556,6 +582,27 @@ export default function QuestionsPageClient({
             </Link>
           </div>
         </div>
+
+        {/* Tab Filter Active Badge */}
+        {filterTab && (
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-medium text-gray-500">
+              {t('questionPage.filterBtn')}结果:
+            </span>
+            <Badge
+              variant="secondary"
+              className="bg-blue-100/80 text-blue-700 border border-blue-200 px-3 py-1 cursor-pointer hover:bg-blue-200 transition-colors"
+              onClick={() => setFilterTab('')}
+            >
+              {filterTab === 'reviewed_today'
+                ? (lang === 'zh' ? '今日已回顾' : 'Reviewed Today')
+                : filterTab === 'added_today'
+                  ? (lang === 'zh' ? '今日新添加' : 'Added Today')
+                  : filterTab}
+              <X className="w-3 h-3 ml-1.5 inline" />
+            </Badge>
+          </div>
+        )}
 
         {/* Main Table */}
         <QuestionsTable

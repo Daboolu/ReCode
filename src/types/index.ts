@@ -113,6 +113,8 @@ export interface QuestionRowData {
   notes: string | null;
   updatedAt: Date;
   nextReview: Date;
+  lastReview: Date | null;
+  createdAt: Date;
 
   problem: {
     id: string;

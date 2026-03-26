@@ -34,6 +34,8 @@ export default async function QuestionsPage() {
     notes: p.notes,
     updatedAt: p.updatedAt,
     nextReview: p.nextReview,
+    lastReview: p.lastReview,
+    createdAt: p.createdAt,
 
     problem: {
       id: p.problem.id,

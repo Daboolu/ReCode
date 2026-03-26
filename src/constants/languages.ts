@@ -177,6 +177,9 @@ export const TRANSLATIONS = {
       reviewCount: '道题分布在今天',
       unit: '题',
       noTasks: '这段时间没有复习任务',
+      todayStatsTitle: '今日数据统计',
+      reviewedToday: '今日已回顾',
+      addedToday: '今日新添加',
     },
     help: {
       problem: '遇到问题？',
@@ -374,6 +377,9 @@ export const TRANSLATIONS = {
       reviewCount: 'questions scheduled for today',
       unit: 'Questions',
       noTasks: 'No upcoming tasks found',
+      todayStatsTitle: 'Today\'s Statistics',
+      reviewedToday: 'Reviewed Today',
+      addedToday: 'Added Today',
     },
     help: {
       problem: 'Have a problem?',
@@ -546,6 +552,9 @@ export type TranslationKeys =
   | 'futurePage.description'
   | 'futurePage.reviewCount'
   | 'futurePage.unit'
-  | 'futurePage.noTasks';
+  | 'futurePage.noTasks'
+  | 'futurePage.todayStatsTitle'
+  | 'futurePage.reviewedToday'
+  | 'futurePage.addedToday';
 
 export type LanguageType = keyof typeof TRANSLATIONS;

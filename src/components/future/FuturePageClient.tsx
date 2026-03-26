@@ -15,9 +15,16 @@ import {
 
 interface FuturePageClientProps {
   data: { date: string; count: number }[];
+  todayStats?: {
+    reviewedCount: number;
+    addedCount: number;
+  };
 }
 
-export default function FuturePageClient({ data }: FuturePageClientProps) {
+export default function FuturePageClient({
+  data,
+  todayStats = { reviewedCount: 0, addedCount: 0 },
+}: FuturePageClientProps) {
   const { t, lang } = useTranslation();
 
   // Process data for charting
@@ -150,6 +157,54 @@ export default function FuturePageClient({ data }: FuturePageClientProps) {
               </p>
             </div>
           )}
+        </div>
+
+        {/* Today's Statistics */}
+        <div className="bg-white/80 backdrop-blur-md rounded-[2rem] p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between border border-gray-100/50 shadow-[0_4px_20px_rgb(0,0,0,0.03)] gap-6 transition-all">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center text-blue-500">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-0.5">
+                {t("futurePage.todayStatsTitle")}
+              </p>
+              <h3 className="text-xl font-bold text-gray-900 border-b-2 border-transparent transition-colors">
+                {t("futurePage.reviewedToday")}
+              </h3>
+            </div>
+          </div>
+          <div className="flex items-center gap-8 w-full md:w-auto">
+            <Link
+              href="/questions?tab=reviewed_today"
+              className="flex flex-col items-start md:items-end w-1/2 md:w-auto p-2 -m-2 rounded-xl hover:bg-gray-50 transition-colors cursor-pointer group"
+            >
+              <span className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1.5 whitespace-nowrap group-hover:text-blue-500 transition-colors">
+                {t("futurePage.reviewedToday")}
+              </span>
+              <div className="flex items-baseline gap-2">
+                <span className="text-3xl font-black text-blue-600 leading-none group-hover:scale-105 origin-right transition-transform">
+                  {todayStats.reviewedCount}
+                </span>
+                <span className="text-sm font-bold text-gray-400">{t("futurePage.unit")}</span>
+              </div>
+            </Link>
+            <div className="w-px h-12 bg-gray-200 hidden md:block"></div>
+            <Link
+              href="/questions?tab=added_today"
+              className="flex flex-col items-start md:items-end w-1/2 md:w-auto p-2 -m-2 rounded-xl hover:bg-gray-50 transition-colors cursor-pointer group"
+            >
+              <span className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1.5 whitespace-nowrap group-hover:text-emerald-500 transition-colors">
+                {t("futurePage.addedToday")}
+              </span>
+              <div className="flex items-baseline gap-2">
+                <span className="text-3xl font-black text-emerald-600 leading-none group-hover:scale-105 origin-right transition-transform">
+                  {todayStats.addedCount}
+                </span>
+                <span className="text-sm font-bold text-gray-400">{t("futurePage.unit")}</span>
+              </div>
+            </Link>
+          </div>
         </div>
       </div>
     </div>

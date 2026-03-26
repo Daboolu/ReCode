@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslation } from "@/hooks/useTranslation";
+import { useRouter } from "next/navigation";
 
 import { Bar, BarChart, XAxis, Cell, LabelList, CartesianGrid } from "recharts";
 import {
@@ -14,6 +15,7 @@ import type { MasteryBarProps } from "@/types";
 
 export function MasteryBar({ distribution }: MasteryBarProps) {
   const { t } = useTranslation();
+  const router = useRouter();
 
   const chartConfig = {
     count: {
@@ -84,6 +86,11 @@ export function MasteryBar({ distribution }: MasteryBarProps) {
                 fill={entry.color}
                 className="hover:opacity-80 transition-opacity cursor-pointer"
                 strokeWidth={2}
+                onClick={() => {
+                  if (entry.level !== undefined) {
+                    router.push(`/questions?mastery=${entry.level}`);
+                  }
+                }}
               />
             ))}
           </Bar>
