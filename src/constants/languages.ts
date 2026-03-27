@@ -110,6 +110,9 @@ export const TRANSLATIONS = {
     codeSection: {
       title: '代码',
       languagePlaceholder: '选择语言',
+      run: '运行',
+      running: '执行中',
+      console: '终端输出',
     },
     metaSidebar: {
       difficulty: '难度级别',
@@ -311,6 +314,9 @@ export const TRANSLATIONS = {
     codeSection: {
       title: 'Solution',
       languagePlaceholder: 'Language',
+      run: 'Run',
+      running: 'Running...',
+      console: 'CONSOLE',
     },
     metaSidebar: {
       difficulty: 'Difficulty',
@@ -509,6 +515,9 @@ export type TranslationKeys =
   | 'editorHeader.confirmExit'
   | 'codeSection.title'
   | 'codeSection.languagePlaceholder'
+  | 'codeSection.run'
+  | 'codeSection.running'
+  | 'codeSection.console'
   | 'metaSidebar.difficulty'
   | 'metaSidebar.difficultyPlaceholder'
   | 'metaSidebar.tags'
