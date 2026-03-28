@@ -3,14 +3,15 @@ import { useTranslation } from "@/hooks/useTranslation";
 
 import { ReviewTask } from "@/types/review";
 
-import { BrainCircuit, Clock } from "lucide-react";
+import { BrainCircuit, Clock, Shuffle } from "lucide-react";
 
 
 interface ReviewHeaderProps {
-  reviews:ReviewTask[];
+  reviews: ReviewTask[];
+  onShuffle?: () => void;
 }
 
-export const ReviewHeader = ({ reviews }: ReviewHeaderProps) => {
+export const ReviewHeader = ({ reviews, onShuffle }: ReviewHeaderProps) => {
   const { t } = useTranslation();
 
   const count = reviews.length;
@@ -65,14 +66,25 @@ export const ReviewHeader = ({ reviews }: ReviewHeaderProps) => {
       </div>
 
       {count > 0 && (
-        <div className="flex items-center gap-2.5 bg-white/80 backdrop-blur-md text-gray-600 px-5 py-2.5 rounded-2xl text-sm font-bold border border-gray-200/60 shadow-sm whitespace-nowrap">
-          <Clock size={18} className="text-[#ffa116]" />
-          <span>
-            {t("reviewHeader.estimatedTime").replace(
-              "{{time}}",
-              totalEstimatedTime.toString()
-            )}
-          </span>
+        <div className="flex items-center gap-4">
+          <button
+            onClick={onShuffle}
+            className="flex items-center justify-center gap-2 bg-white/80 hover:bg-white backdrop-blur-md text-gray-700 px-4 py-2.5 rounded-2xl text-sm font-bold border border-gray-200/60 shadow-sm hover:shadow-md transition-all cursor-pointer group"
+            title="Shuffle Reviews"
+          >
+            <Shuffle size={18} className="text-gray-500 group-hover:text-amber-500 transition-colors" />
+            <span>{t("reviewHeader.shuffle") || "Shuffle"}</span>
+          </button>
+          
+          <div className="flex items-center gap-2.5 bg-white/80 backdrop-blur-md text-gray-600 px-5 py-2.5 rounded-2xl text-sm font-bold border border-gray-200/60 shadow-sm whitespace-nowrap">
+            <Clock size={18} className="text-[#ffa116]" />
+            <span>
+              {t("reviewHeader.estimatedTime").replace(
+                "{{time}}",
+                totalEstimatedTime.toString()
+              )}
+            </span>
+          </div>
         </div>
       )}
     </div>

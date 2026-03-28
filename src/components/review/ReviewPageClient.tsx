@@ -22,6 +22,10 @@ export default function ReviewPageClient({
   const [activeTaskId, setActiveTaskId] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const handleShuffle = () => {
+    setReviews((prev) => [...prev].sort(() => Math.random() - 0.5));
+  };
+
   // Preview State
   const [previewData, setPreviewData] = useState<QuestionRowData | null>(null);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
@@ -35,6 +39,9 @@ export default function ReviewPageClient({
       masteryLevel: task.masteryLevel,
       notes: task.notes || null,
       updatedAt: new Date(),
+      nextReview: new Date(),
+      lastReview: null,
+      createdAt: new Date(),
       problem: {
         // this id is not used
         id: '0',
@@ -97,7 +104,7 @@ export default function ReviewPageClient({
 
       <div className="relative z-10 max-w-6xl mx-auto space-y-8 md:space-y-12 pb-24 p-4 md:p-8 lg:p-10">
         {/* Header */}
-        <ReviewHeader reviews={reviews} />
+        <ReviewHeader reviews={reviews} onShuffle={handleShuffle} />
 
         {/* Review List */}
         <AnimatePresence mode="wait">

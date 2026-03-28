@@ -134,9 +134,10 @@ export const TRANSLATIONS = {
     },
     reviewHeader: {
       title: '每日复习',
-      descriptionWithCount: '你今天有 {{count}} 道题目需要复习。',
-      descriptionEmpty: '你已完成所有复习任务！干得漂亮。',
-      estimatedTime: '预计耗时：{{time}} 分钟',
+      descriptionWithCount: '今天有 {{count}} 道题需要复习。',
+      descriptionEmpty: '今日任务已清空！干得漂亮。',
+      estimatedTime: '预计耗时: {{time}} 分钟',
+      shuffle: '打乱顺序',
     },
     reviewCard: {
       lastReview: '最近复习',
@@ -342,6 +343,7 @@ export const TRANSLATIONS = {
         'You have {{count}} questions due for review today.',
       descriptionEmpty: "You're all caught up! Great job.",
       estimatedTime: 'Estimated time: {{time}} mins',
+      shuffle: 'Shuffle',
     },
     reviewCard: {
       lastReview: 'Last',
@@ -536,6 +538,7 @@ export type TranslationKeys =
   | 'reviewHeader.descriptionWithCount'
   | 'reviewHeader.descriptionEmpty'
   | 'reviewHeader.estimatedTime'
+  | 'reviewHeader.shuffle'
   | 'reviewCard.lastReview'
   | 'reviewCard.currentMastery'
   | 'reviewCard.solveBtn'
