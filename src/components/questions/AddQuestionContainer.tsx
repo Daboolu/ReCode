@@ -21,6 +21,10 @@ export default function AddQuestionContainer({
   const handleCompleteSelection = (data?: Partial<EditorFormData>) => {
     if (data) {
       setFetchedData(data);
+    } else {
+      // Custom mode: Generate a random ID with -note suffix to prevent overriding existing LeetCode problems
+      const randomId = Math.floor(Math.random() * 1000000);
+      setFetchedData({ pid: `${randomId}-note` });
     }
     setHasSelected(true);
   };

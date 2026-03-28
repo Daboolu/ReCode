@@ -82,7 +82,7 @@ export const EditorHeader = ({
                 value={pid}
                 onChange={(e) => onUpdate('pid', e.target.value)}
                 placeholder="ID"
-                className="w-16 font-mono text-gray-700 font-medium border-none shadow-none bg-transparent focus-visible:ring-0 px-0 h-auto py-0"
+                className="w-[6rem] sm:w-[7.5rem] md:w-24 font-mono text-gray-700 font-medium border-none shadow-none bg-transparent focus-visible:ring-0 px-0 h-auto py-0"
               />
             </div>
 
