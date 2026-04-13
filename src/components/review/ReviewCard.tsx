@@ -135,17 +135,29 @@ export const ReviewCard = ({
         <div className="flex flex-col items-end gap-4 justify-center min-w-[240px]">
           {!isActive ? (
             <>
-              <a
-                href={getLeetCodeUrl(task.title, task.url, task.slug)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full"
-                onClick={onActivate}
-              >
-                <Button className="w-full bg-gray-900 hover:bg-black gap-3 h-14 text-base font-bold rounded-2xl shadow-xl shadow-gray-200 hover:shadow-gray-300 hover:-translate-y-0.5 transition-all cursor-pointer">
-                  {t('reviewCard.solveBtn')} <ExternalLink size={18} />
+              {task.questionId.endsWith('-note') ? (
+                <Button
+                  className="w-full bg-gray-900 hover:bg-black gap-3 h-14 text-base font-bold rounded-2xl shadow-xl shadow-gray-200 hover:shadow-gray-300 hover:-translate-y-0.5 transition-all cursor-pointer"
+                  onClick={() => {
+                    onPreview();
+                    onActivate();
+                  }}
+                >
+                  {t('reviewCard.solveBtn')}
                 </Button>
-              </a>
+              ) : (
+                <a
+                  href={getLeetCodeUrl(task.title, task.url, task.slug)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full"
+                  onClick={onActivate}
+                >
+                  <Button className="w-full bg-gray-900 hover:bg-black gap-3 h-14 text-base font-bold rounded-2xl shadow-xl shadow-gray-200 hover:shadow-gray-300 hover:-translate-y-0.5 transition-all cursor-pointer">
+                    {t('reviewCard.solveBtn')} <ExternalLink size={18} />
+                  </Button>
+                </a>
+              )}
               <Button
                 variant="ghost"
                 size="sm"

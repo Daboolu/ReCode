@@ -111,7 +111,7 @@ export default function QuestionEditor({
         />
 
         <div className="flex flex-col gap-6">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:h-[650px]">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:h-[850px]">
             <div className="lg:col-span-2 flex flex-col h-full shadow-[0_8px_30px_rgba(0,0,0,0.04)] rounded-[2rem] overflow-hidden border border-white/60 bg-white/40 backdrop-blur-sm">
               <CodeSection
                 code={formData.code}

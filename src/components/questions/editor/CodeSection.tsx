@@ -47,7 +47,7 @@ export const CodeSection = ({ code, language, onUpdate }: CodeSectionProps) => {
   };
 
   return (
-    <div className="flex flex-col bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden h-[500px] lg:h-full">
+    <div className="flex flex-col bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden h-[600px] lg:h-full">
       <div className="p-3 border-b border-gray-100 flex justify-between items-center bg-gray-50/50 shrink-0">
         <div className="flex items-center gap-2">
           <Code2 className="w-4 h-4 text-blue-500" />
